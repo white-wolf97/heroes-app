@@ -1,10 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { DcScreen } from "../components/dc/DcScreen";
 import { LoginScreen } from "../components/login/LoginScreen";
-import { MarvelScreen } from "../components/marvel/MarvelScreen";
-import { SearchScreen } from "../components/search/SearchScreen";
-import { Navbar } from "../components/ui/NavBar";
+import { RegisterScreen } from "../components/register/RegisterScreen";
 import { DashboardRoutes } from "./DashboardRoutes";
 import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
@@ -20,6 +17,14 @@ export const AppRouter = () => {
           element={
             <PublicRoute>
               <LoginScreen />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <PublicRoute>
+              <RegisterScreen />
             </PublicRoute>
           }
         />
