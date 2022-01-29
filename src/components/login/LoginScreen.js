@@ -2,15 +2,23 @@ import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../auth/authContext";
 import { types } from "../../types/types";
-
+import { useForm } from '../../hooks/useForm'
 export const LoginScreen = () => {
   const navigate = useNavigate();
+  const [formValues, handleInputChange] = useForm({
+    username: '',
+    password: ''
+  })
+
+  const { username, password } = formValues;
+
   const { dispatch } = useContext(AuthContext);
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault();
     const action = {
       type: types.login,
       payload: {
-        name: "Adolfo Castelo",
+        name: username,
       },
     };
     dispatch(action);
@@ -19,14 +27,37 @@ export const LoginScreen = () => {
       replace: true,
     });
   };
-
   return (
-    <div className="container mt-5">
-      <h1>LoginScreen</h1>
-      <hr />
-      <button className="btn btn-primary" onClick={handleLogin}>
-        Login
-      </button>
+    <div style={{ backgroundImage: `url('https://images.hdqwalls.com/wallpapers/marvel-vs-dc-1u.jpg')`, width: "100vw", height: "100vh", backgroundSize: "cover", position: "relative" }}>
+      <div className="container mt-5 w-25" style={{ display: "block", textAlign: "center", backgroundColor: "white", borderRadius: "5px", position: "absolute", top: "35%", left: "40%" }} >
+        <h1>Login</h1>
+        <hr />
+        <form onSubmit={handleLogin}>
+          <input
+            type="text"
+            placeholder="Your username"
+            className="form-control"
+            name="username"
+            value={username}
+            autoComplete="off"
+            onChange={handleInputChange}
+          />
+
+          <input
+            type="password"
+            name="password"
+            placeholder="*******"
+            className="form-control mt-3"
+            value={password}
+            autoComplete="off"
+            onChange={handleInputChange}
+          />
+          <button className="btn btn-primary mt-3 mb-3" type="submit">
+            Login
+          </button>
+        </form>
+
+      </div>
     </div>
   );
 };
