@@ -15,17 +15,26 @@ export const LoginScreen = () => {
   const { dispatch } = useContext(AuthContext);
   const handleLogin = (e) => {
     e.preventDefault();
-    const action = {
-      type: types.login,
-      payload: {
-        name: username,
-      },
-    };
-    dispatch(action);
-    const lastPath = localStorage.getItem("lastPath") || "/marvel";
-    navigate(lastPath, {
-      replace: true,
-    });
+    fetch('http://localhost:4000/api/v1/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user: username,
+        password: password
+      })
+    }).then((res) => res.json()).then((res) => console.log(res))
+
+    // const action = {
+    //   type: types.login,
+    //   payload: {
+    //     name: username,
+    //   },
+    // };
+    // dispatch(action);
+    // const lastPath = localStorage.getItem("lastPath") || "/marvel";
+    // navigate(lastPath, {
+    //   replace: true,
+    // });
   };
   return (
     <div style={{ backgroundImage: `url('https://images.hdqwalls.com/wallpapers/marvel-vs-dc-1u.jpg')`, width: "100vw", height: "100vh", backgroundSize: "cover", position: "relative" }}>
