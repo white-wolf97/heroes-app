@@ -15,13 +15,13 @@ module.exports = class AuthController {
 			}
 
 			const users = User.getUsers();
-			if (!users[user].password === hash(password)) {
+			if (users[user].password !== hash(password)) {
 				res.status(401).json({ status: 'error', msg: 'Wrong password' });
 				return;
 			}
 
 			console.log(`login del usuario: ${user}`);
-			res.status(200).json({ status: 'ok', msg: 'Successfull login' })
+			res.status(200).json({ status: 'ok', msg: 'Successfully logged in' })
 		}
 		catch (err) {
 			console.log(err);
