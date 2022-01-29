@@ -1,7 +1,7 @@
 const registerValidation = (req, res, next) => {
 	try {
 
-		const { firstName, lastName, username, password } = req.body;
+		const { firstName, lastName, username, password, password2 } = req.body;
 
 		if (!firstName.trim()) {
 			res.status(400).json({ status: 'error', msg: 'firstName cannot be empty' });
@@ -20,6 +20,11 @@ const registerValidation = (req, res, next) => {
 
 		if (!password.trim()) {
 			res.status(400).json({ status: 'error', msg: 'password cannot be empty' });
+			return;
+		}
+
+		if (password !== password2) {
+			res.status(400).json({ status: 'error', msg: 'Passwords must match' });
 			return;
 		}
 		next();
